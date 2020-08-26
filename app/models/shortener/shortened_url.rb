@@ -117,7 +117,11 @@ class Shortener::ShortenedUrl < ApplicationRecord
   end
 
   def increment_usage_count
-    self.class.increment_counter(:use_count, id)
+    p "1 use_count === #{use_count.to_s}"
+    self.update(use_count: (use_count + 1))
+    p "2 use_count === #{use_count.to_s}"
+    Shortener::ShortenedUrl.increment_counter(:use_count, id)
+    #self.class.increment_counter(:use_count, id)
   end
 
   def to_param
